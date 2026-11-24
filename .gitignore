@@ -1,0 +1,7 @@
+INTERVIEW_FAQ.md
+venv/
+__pycache__/
+*.pyc
+db.sqlite3
+.DS_Store
+BUILD_STEPS.md
