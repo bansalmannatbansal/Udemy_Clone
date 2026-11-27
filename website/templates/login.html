@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Log in{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}?v=6">
+{% endblock %}
+
+{% block content %}
+<section class="auth-page">
+    <img src="{% static 'images/auth-login.jpg' %}" alt="Student attending an online class on a laptop" class="auth-image">
+    <div class="auth-box">
+        <h1>Log in to your account</h1>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="{{ email }}" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Log in</button>
+        </form>
+        <p class="auth-switch">Don't have an account? <a href="{% url 'signup' %}">Create an account</a></p>
+        <p class="auth-switch"><a href="{% url 'home' %}">← Back to Home</a></p>
+    </div>
+</section>
+{% endblock %}

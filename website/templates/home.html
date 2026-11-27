@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/course_card.css' %}?v=6">
+<link rel="stylesheet" href="{% static 'css/home.css' %}?v=6">
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <img src="{% static 'images/hero-banner.jpg' %}" alt="Woman smiling while learning on a laptop" class="hero-image">
+    <div class="hero-box">
+        <h1>Learning that gets you</h1>
+        <p>Skills for your present (and your future). Get started with courses taught by expert instructors.</p>
+        <a href="{% url 'courses' %}" class="btn btn-primary">Explore courses</a>
+    </div>
+</section>
+
+<section class="section container">
+    <h2>Top categories</h2>
+    <div class="category-grid">
+        {% for category in categories %}
+            <a href="{% url 'courses' %}?category={{ category.slug }}" class="category-card">
+                <img src="{% static 'images/'|add:category.image %}" alt="{{ category.name }}">
+                <h3>{{ category.name }}</h3>
+            </a>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section container">
+    <h2>A broad selection of courses</h2>
+    <p class="section-subtitle">Choose from our most popular online video courses.</p>
+    <div class="course-grid">
+        {% for course in featured_courses %}
+            {% include "course_card.html" %}
+        {% endfor %}
+    </div>
+    <a href="{% url 'courses' %}" class="btn btn-outline">View all courses</a>
+</section>
+
+<section class="trusted">
+    <div class="container">
+        <p class="trusted-text">Udemy Clone is trusted by learners and teams around the world <a href="{% url 'courses' %}">Explore courses ›</a></p>
+        <div class="logo-row">
+            <span>Brightpath</span>
+            <span>NOVATEK</span>
+            <span>bluepeak</span>
+            <span>Orbitly</span>
+            <span>GREENFIELD</span>
+            <span>Lumen Labs</span>
+            <span>skyforge</span>
+            <span>VERTEXA</span>
+        </div>
+    </div>
+</section>
+
+<section class="section container">
+    <h2>Join others transforming their lives through learning</h2>
+    <div class="testimonial-grid">
+        <div class="testimonial-card">
+            <p class="quote-mark">“</p>
+            <p class="testimonial-text">The Python course started from the very basics and moved at the right pace. The small projects helped me <strong>build real confidence</strong> in programming.</p>
+            <div class="avatar">RS</div>
+            <p class="person-name">Riya S.</p>
+            <p class="person-role">Python Bootcamp graduate</p>
+            <a href="{% url 'course_detail' 'python-bootcamp' %}" class="testimonial-link">View this Python course ›</a>
+        </div>
+        <div class="testimonial-card">
+            <p class="quote-mark">“</p>
+            <p class="testimonial-text">Learning Django here was <strong>a turning point for me</strong>. I finally understood how real websites are built, from URLs to templates.</p>
+            <div class="avatar">KM</div>
+            <p class="person-name">Kabir Malhotra</p>
+            <p class="person-role">Junior Web Developer</p>
+            <a href="{% url 'course_detail' 'django-web-development' %}" class="testimonial-link">View this Django course ›</a>
+        </div>
+        <div class="testimonial-card">
+            <p class="quote-mark">“</p>
+            <p class="testimonial-text">The data science course gave me practical skills I use every day. It helped me <strong>move into a data analyst role.</strong></p>
+            <div class="avatar">AJ</div>
+            <p class="person-name">Aditi Joshi</p>
+            <p class="person-role">Data Analyst</p>
+            <a href="{% url 'course_detail' 'data-science-python' %}" class="testimonial-link">View this Data Science course ›</a>
+        </div>
+        <div class="testimonial-card">
+            <p class="quote-mark">“</p>
+            <p class="testimonial-text">I loved the marketing course. Within a week I had planned my first social media campaign and could measure its results.</p>
+            <div class="avatar">VK</div>
+            <p class="person-name">Varun K.</p>
+            <p class="person-role">Marketing Executive</p>
+            <a href="{% url 'course_detail' 'digital-marketing' %}" class="testimonial-link">View this Marketing course ›</a>
+        </div>
+    </div>
+</section>
+
+<section class="section container">
+    <h2>Ready to reimagine your career?</h2>
+    <p class="section-subtitle">Get the skills and real-world experience employers want with Career Paths.</p>
+    <div class="career-grid">
+        <a href="{% url 'courses' %}?category=development" class="career-card">
+            <img src="{% static 'images/career-web-developer.jpg' %}" alt="Young man working on a laptop">
+            <h3>Web Developer</h3>
+            <div class="stat-row"><span>★ 4.7</span><span>2 courses</span><span>40 total hours</span></div>
+        </a>
+        <a href="{% url 'courses' %}?category=data-science" class="career-card">
+            <img src="{% static 'images/career-data-scientist.jpg' %}" alt="Woman working with code on two monitors">
+            <h3>Data Scientist</h3>
+            <div class="stat-row"><span>★ 4.6</span><span>2 courses</span><span>35 total hours</span></div>
+        </a>
+        <a href="{% url 'courses' %}?category=business" class="career-card">
+            <img src="{% static 'images/career-digital-marketer.jpg' %}" alt="Smiling woman working on a laptop">
+            <h3>Digital Marketer</h3>
+            <div class="stat-row"><span>★ 4.4</span><span>2 courses</span><span>24 total hours</span></div>
+        </a>
+    </div>
+    <a href="{% url 'courses' %}" class="arrow-link">All Career Paths →</a>
+</section>
+
+<section class="skills-band">
+    <div class="container">
+        <h2>Popular Skills</h2>
+        <div class="skills-grid">
+            <div class="skills-top">
+                <h3>Python is a top skill</h3>
+                <a href="{% url 'courses' %}?q=python" class="skill-link">See Python courses ›</a>
+                <p class="skill-count">2 courses</p>
+                <a href="{% url 'courses' %}" class="btn btn-outline-purple">Show all trending skills ↗</a>
+            </div>
+            <div class="skills-col">
+                <h3>Development</h3>
+                <a href="{% url 'courses' %}?q=python" class="skill-link">Python ›</a>
+                <p class="skill-count">2 courses</p>
+                <a href="{% url 'courses' %}?q=django" class="skill-link">Django ›</a>
+                <p class="skill-count">1 course</p>
+                <a href="{% url 'courses' %}?q=sql" class="skill-link">SQL ›</a>
+                <p class="skill-count">1 course</p>
+            </div>
+            <div class="skills-col">
+                <h3>Design</h3>
+                <a href="{% url 'courses' %}?q=web+design" class="skill-link">Web Design ›</a>
+                <p class="skill-count">1 course</p>
+                <a href="{% url 'courses' %}?q=ui%2Fux" class="skill-link">UI/UX Design ›</a>
+                <p class="skill-count">1 course</p>
+                <a href="{% url 'courses' %}?q=html" class="skill-link">HTML & CSS ›</a>
+                <p class="skill-count">1 course</p>
+            </div>
+            <div class="skills-col">
+                <h3>Business</h3>
+                <a href="{% url 'courses' %}?q=marketing" class="skill-link">Digital Marketing ›</a>
+                <p class="skill-count">1 course</p>
+                <a href="{% url 'courses' %}?q=project" class="skill-link">Project Management ›</a>
+                <p class="skill-count">1 course</p>
+                <a href="{% url 'courses' %}?q=machine+learning" class="skill-link">Machine Learning ›</a>
+                <p class="skill-count">1 course</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section container">
+    <h2>Learn web development step by step</h2>
+    <div class="path-banner">
+        <div class="path-intro">
+            <p class="logo">Udemy<span>Clone</span></p>
+            <h3>Full Stack Web Development Path</h3>
+            <p>Go from your first line of Python to building and styling complete websites.</p>
+            <div class="stat-row"><span>★ 4.6</span><span>63 total hours</span><span>4 courses</span></div>
+            <a href="{% url 'courses' %}" class="btn btn-outline-purple btn-block">Learn more</a>
+        </div>
+        <div class="path-courses">
+            <a href="{% url 'course_detail' 'python-bootcamp' %}" class="path-card">
+                <img src="{% static 'images/course-python.jpg' %}" alt="Python course">
+                <h4>Python Basics</h4>
+                <div class="stat-row"><span>Course 1 of 4</span><span>22 hours</span></div>
+            </a>
+            <a href="{% url 'course_detail' 'web-design-html-css' %}" class="path-card">
+                <img src="{% static 'images/course-webdesign.jpg' %}" alt="Web design course">
+                <h4>HTML & CSS Web Design</h4>
+                <div class="stat-row"><span>Course 2 of 4</span><span>14 hours</span></div>
+            </a>
+            <a href="{% url 'course_detail' 'sql-for-beginners' %}" class="path-card">
+                <img src="{% static 'images/course-sql.jpg' %}" alt="SQL course">
+                <h4>SQL and Databases</h4>
+                <div class="stat-row"><span>Course 3 of 4</span><span>9 hours</span></div>
+            </a>
+            <a href="{% url 'course_detail' 'django-web-development' %}" class="path-card">
+                <img src="{% static 'images/course-django.jpg' %}" alt="Django course">
+                <h4>Django Web Development</h4>
+                <div class="stat-row"><span>Course 4 of 4</span><span>18 hours</span></div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="cta-banner">
+    <div class="container cta-inner">
+        <img src="{% static 'images/cta-learning.jpg' %}" alt="Group of people learning together on a laptop" class="cta-image">
+        <div class="cta-text">
+            <h2>Start learning today</h2>
+            <p>Create a free account and pick from courses in development, business, design and data science.</p>
+            <a href="{% url 'signup' %}" class="btn btn-primary">Join for free</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
