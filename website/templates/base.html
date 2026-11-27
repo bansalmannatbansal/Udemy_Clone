@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Udemy Clone{% endblock %} | Udemy Clone</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}?v=6">
+    {% block css %}{% endblock %}
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="{% url 'home' %}" class="logo">Udemy<span>Clone</span></a>
+
+            <form class="search-form" action="{% url 'courses' %}" method="get">
+                <label for="search" class="visually-hidden">Search courses</label>
+                <input type="search" id="search" name="q" placeholder="Search for anything" value="{{ query|default:'' }}">
+                <button type="submit">Search</button>
+            </form>
+
+            <nav class="main-nav">
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'courses' %}">Courses</a>
+                <a href="{% url 'pricing' %}">Pricing</a>
+                {% if user.is_authenticated %}
+                    <span class="nav-user">Hi, {{ user.first_name }}</span>
+                    <form action="{% url 'logout' %}" method="post" class="logout-form">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline">Log out</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-outline">Log in</a>
+                    <a href="{% url 'signup' %}" class="btn btn-dark">Sign up</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <p class="message message-{{ message.tags }}">{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <main class="site-main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-companies">
+            <div class="footer-container footer-companies-inner">
+                <p>Top companies choose <span>Udemy Clone</span> to build in-demand career skills.</p>
+                <div class="logo-row logo-row-light">
+                    <span>NOVATEK</span>
+                    <span>Orbitly</span>
+                    <span>bluepeak</span>
+                    <span>skyforge</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-explore">
+            <div class="footer-container">
+                <h2 class="footer-explore-title">Explore top skills and certifications</h2>
+                <div class="footer-grid">
+                    <div class="footer-col">
+                        <h3>Development</h3>
+                        <ul>
+                            <li><a href="{% url 'course_detail' 'python-bootcamp' %}">The Complete Python Bootcamp: From Zero to Hero</a></li>
+                            <li><a href="{% url 'course_detail' 'django-web-development' %}">Django Web Development: Build Real Websites</a></li>
+                            <li><a href="{% url 'courses' %}?category=development">All Development courses</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Business</h3>
+                        <ul>
+                            <li><a href="{% url 'course_detail' 'digital-marketing' %}">Digital Marketing Masterclass</a></li>
+                            <li><a href="{% url 'course_detail' 'project-management-basics' %}">Project Management Basics</a></li>
+                            <li><a href="{% url 'courses' %}?category=business">All Business courses</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Design</h3>
+                        <ul>
+                            <li><a href="{% url 'course_detail' 'web-design-html-css' %}">Modern Web Design with HTML & CSS</a></li>
+                            <li><a href="{% url 'course_detail' 'ui-ux-fundamentals' %}">UI/UX Design Fundamentals</a></li>
+                            <li><a href="{% url 'courses' %}?category=design">All Design courses</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3>Data Science</h3>
+                        <ul>
+                            <li><a href="{% url 'course_detail' 'data-science-python' %}">Data Science and Machine Learning with Python</a></li>
+                            <li><a href="{% url 'course_detail' 'sql-for-beginners' %}">SQL for Beginners: Learn Databases Step by Step</a></li>
+                            <li><a href="{% url 'courses' %}?category=data-science">All Data Science courses</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-main">
+            <div class="footer-container footer-grid">
+                <div class="footer-col">
+                    <h3>About</h3>
+                    <p>Udemy Clone is an online learning website built with Django as a college mini project.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Discover Udemy Clone</h3>
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'courses' %}">All courses</a></li>
+                        <li><a href="{% url 'pricing' %}">Plans and Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Your Account</h3>
+                    <ul>
+                        <li><a href="{% url 'login' %}">Log in</a></li>
+                        <li><a href="{% url 'signup' %}">Sign up</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-container footer-bottom">
+                <a href="{% url 'home' %}" class="logo logo-light">Udemy<span>Clone</span></a>
+                <p class="copyright">© 2026 Udemy Clone · College project, not affiliated with Udemy.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
